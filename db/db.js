@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 require('dotenv').config();
 
-// const mongoURI = process.env.MONGODB
-const mongoURI = "mongodb+srv://copier:copier@cluster0.jsh918h.mongodb.net/copier";
+const mongoURI = process.env.MONGODB
+// const mongoURI = "mongodb+srv://copier:copier@cluster0.jsh918h.mongodb.net/copier";
 
 mongoose
   .connect(mongoURI, {
