@@ -32,9 +32,6 @@ const jobAdmitCardSchema = new mongoose.Schema({
     type: String,
     required: true 
   },
-  resultLink:{
-    type: String,
-  },
   slug:{
     type: String,
   },
@@ -43,7 +40,11 @@ const jobAdmitCardSchema = new mongoose.Schema({
   
   ageLimits: [extraInfoSchema],
 
-  importantLinks: [importantLinksSchema]
+  importantLinks: [importantLinksSchema],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  }
 })
 
 

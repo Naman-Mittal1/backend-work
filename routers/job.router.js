@@ -10,24 +10,60 @@
 
   /* */
 
+
+  const getRecentAndReversed = async (model) => {
+    const results = await model.find({}, 'jobShortName slug').sort({ createdAt: -1 }).limit(10);
+    return results.map(entry => ({
+      jobName: entry.jobShortName,
+      slug: entry.slug
+    }));
+  };
+
+  const getAllEntries = async (model) => {
+    const results = await model.find({}).sort({ createdAt: -1 });
+    return results;
+  };
+
+  /* */
+  
   router.get('/jobResult', async (req, res) => {
     try {
-      const results = await JobResult.find({}, 'jobShortName slug');
-      
-      const jobs = results.map(job => ({
-        jobName: job.jobShortName,
-        slug: job.slug
-      }));
-
-
+      const jobs = await getRecentAndReversed(JobResult);
       res.json(jobs);
-
-
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+
+  router.get('/jobResult/all', async (req, res) => {
+    try {
+      const jobs = await getAllEntries(JobResult);
+      res.json(jobs);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+  // router.get('/jobResult', async (req, res) => {
+  //   try {
+  //     const results = await JobResult.find({}, 'jobShortName slug');
+      
+  //     const jobs = results.map(job => ({
+  //       jobName: job.jobShortName,
+  //       slug: job.slug
+  //     }));
+
+
+  //     res.json(jobs);
+
+
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.status(500).json({ error: 'Internal Server Error' });
+  //   }
+  // });
 
   router.get('/jobResult/details/:slug', async (req, res) => {
     try {
@@ -100,15 +136,25 @@
 
   router.get('/jobAdmitCard', async (req, res) => {
     try {
-      const admitCard = await jobAdmitCard.find({}, 'jobShortName slug');
+      const admitCard = await getRecentAndReversed(jobAdmitCard)
       
-      const jobNames = admitCard.map(admitCard => ({
-        jobName: admitCard.jobShortName,
-        slug: admitCard.slug
-      }));
+      // const jobNames = admitCard.map(admitCard => ({
+      //   jobName: admitCard.jobShortName,
+      //   slug: admitCard.slug
+      // }));
             
-      res.json(jobNames);
+      res.json(admitCard);
 
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+  router.get('/jobAdmitCard/all', async (req, res) => {
+    try {
+      const jobs = await getAllEntries(jobAdmitCard);
+      res.json(jobs);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -182,15 +228,25 @@
 
   router.get('/jobSyllabus', async (req, res) => {
     try {
-      const syllabus = await jobSyllabus.find({}, 'jobShortName slug');
+      const syllabus = await getRecentAndReversed(jobSyllabus)
       
-      const jobNames = syllabus.map(syllabus => ({
-        jobName: syllabus.jobShortName,
-        slug: syllabus.slug
-      }));
+      // const jobNames = syllabus.map(syllabus => ({
+      //   jobName: syllabus.jobShortName,
+      //   slug: syllabus.slug
+      // }));
       
-      res.json(jobNames);
+      res.json(syllabus);
 
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+  router.get('/jobSyllabus/all', async (req, res) => {
+    try {
+      const jobs = await getAllEntries(jobSyllabus);
+      res.json(jobs);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -260,15 +316,25 @@
 
   router.get('/jobLatestJob', async (req, res) => {
     try {
-      const latestJob = await jobLatestJob.find({}, 'jobShortName slug');
+      const latestJob = await getRecentAndReversed(jobLatestJob)
       
-      const jobNames = latestJob.map(latestJob => ({
-        jobName: latestJob.jobShortName,
-        slug: latestJob.slug
-      }));
+      // const jobNames = latestJob.map(latestJob => ({
+      //   jobName: latestJob.jobShortName,
+      //   slug: latestJob.slug
+      // }));
       
-      res.json(jobNames);
+      res.json(latestJob);
 
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+  router.get('/jobLatestJob/all', async (req, res) => {
+    try {
+      const jobs = await getAllEntries(jobLatestJob);
+      res.json(jobs);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -337,15 +403,25 @@
 
   router.get('/jobAnswerKey', async (req, res) => {
     try {
-      const answerKey = await jobAnswerKey.find({}, 'jobShortName slug');
+      const answerKey = await getRecentAndReversed(jobAnswerKey)
       
-      const jobNames = answerKey.map(answerKey => ({
-        jobName: answerKey.jobShortName,
-        slug: answerKey.slug
-      }));
+      // const jobNames = answerKey.map(answerKey => ({
+      //   jobName: answerKey.jobShortName,
+      //   slug: answerKey.slug
+      // }));
       
-      res.json(jobNames);
+      res.json(answerKey);
 
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+  router.get('/jobAnswerKey/all', async (req, res) => {
+    try {
+      const jobs = await getAllEntries(jobAnswerKey);
+      res.json(jobs);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -414,15 +490,25 @@
 
   router.get('/jobOthers', async (req, res) => {
     try {
-      const others = await jobOthers.find({}, 'jobShortName slug');
+      const others = await getRecentAndReversed(jobOthers)
       
-      const jobNames = others.map(others => ({
-        jobName: others.jobShortName,
-        slug: others.slug
-      }));
+      // const jobNames = others.map(others => ({
+      //   jobName: others.jobShortName,
+      //   slug: others.slug
+      // }));
       
-      res.json(jobNames);
+      res.json(others);
 
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+  router.get('/jobOthers/all', async (req, res) => {
+    try {
+      const jobs = await getAllEntries(jobOthers);
+      res.json(jobs);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });

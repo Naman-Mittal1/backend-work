@@ -33,9 +33,6 @@ const jobSyllabusSchema = new mongoose.Schema({
     type: String,
     required: true 
   },
-  resultLink:{
-    type: String,
-  },
   slug:{
     type: String,
   },
@@ -44,7 +41,11 @@ const jobSyllabusSchema = new mongoose.Schema({
   
   ageLimits: [extraInfoSchema],
 
-  importantLinks: [importantLinksSchema]
+  importantLinks: [importantLinksSchema],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  }
 })
 
 // ,{timestamps: true}
