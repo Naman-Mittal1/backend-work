@@ -7,6 +7,8 @@
   const jobAnswerKey = require('../models/jobAnswerKey.js');
   const jobOthers = require('../models/jobOthers.js');
 
+  var upload = require("../middlewares/upload.js")
+
 
   /* */
 
@@ -46,25 +48,6 @@
     }
   });
 
-  // router.get('/jobResult', async (req, res) => {
-  //   try {
-  //     const results = await JobResult.find({}, 'jobShortName slug');
-      
-  //     const jobs = results.map(job => ({
-  //       jobName: job.jobShortName,
-  //       slug: job.slug
-  //     }));
-
-
-  //     res.json(jobs);
-
-
-  //   } catch (error) {
-  //     console.error(error);
-  //     res.status(500).json({ error: 'Internal Server Error' });
-  //   }
-  // });
-
   router.get('/jobResult/details/:slug', async (req, res) => {
     try {
       const { slug } = req.params;
@@ -94,18 +77,28 @@
     }
   });
 
-  router.post('/jobresult/add', async (req, res) => {
+  router.post('/jobresult/add', upload.single('image'), async (req, res) => {
     try {
+
+      // if (req.file == undefined) {
+      //   return res.send(`You must select a file.`);
+      // }
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
+
       const jobResult = new JobResult({
         jobName: req.body.jobName,
         jobShortName: req.body.jobShortName,
+        image: '/assets/uploads/'+ req.file.filename,
         description: req.body.description,
         resultLink: req.body.resultLink,
         slug: req.body.slug,
         dates: req.body.dates,
         fees: req.body.fees,
         ageLimits: req.body.ageLimits,
-        importantLinks: req.body.importantLinks
+        importantLinks: req.body.importantLinks,
+        tags: req.body.tags
       });
     
       // Save to MongoDB
@@ -190,18 +183,25 @@
     }
   });
 
-  router.post('/jobAdmitCard/add', async (req, res) => {
+  router.post('/jobAdmitCard/add', upload.single('image'), async (req, res) => {
     try {
+
+      // if (req.file == undefined) {
+      //   return res.send(`You must select a file.`);
+      // }
+
       const jobAdmitCards = new jobAdmitCard({
         jobName: req.body.jobName,
         jobShortName: req.body.jobShortName,
+        image: '/assets/uploads/'+ req.file.filename,
         description: req.body.description,
         resultLink: req.body.resultLink,
         slug: req.body.slug,
         dates: req.body.dates,
         fees: req.body.fees,
         ageLimits: req.body.ageLimits,
-        importantLinks: req.body.importantLinks
+        importantLinks: req.body.importantLinks,
+        tags: req.body.tags
       });
     
       // Save to MongoDB
@@ -279,18 +279,24 @@
     }
   });
 
-  router.post('/jobSyllabus/add', async (req, res) => {
+  router.post('/jobSyllabus/add', upload.single('image'), async (req, res) => {
     try {
+      // if (req.file == undefined) {
+      //   return res.send(`You must select a file.`);
+      // }
+
       const jobSyllabuses = new jobSyllabus({
         jobName: req.body.jobName,
         jobShortName: req.body.jobShortName,
+        image: '/assets/uploads/'+ req.file.filename,
         description: req.body.description,
         resultLink: req.body.resultLink,
         slug: req.body.slug,
         dates: req.body.dates,
         fees: req.body.fees,
         ageLimits: req.body.ageLimits,
-        importantLinks: req.body.importantLinks
+        importantLinks: req.body.importantLinks,
+        tags: req.body.tags
       });
     
       // Save to MongoDB
@@ -366,18 +372,24 @@
     }
   });
 
-  router.post('/jobLatestJob/add', async (req, res) => {
+  router.post('/jobLatestJob/add', upload.single('image'), async (req, res) => {
     try {
+      // if (req.file == undefined) {
+      //   return res.send(`You must select a file.`);
+      // }
+
       const jobLatestJobs = new jobLatestJob({
         jobName: req.body.jobName,
         jobShortName: req.body.jobShortName,
+        image: '/assets/uploads/'+ req.file.filename,
         description: req.body.description,
         resultLink: req.body.resultLink,
         slug: req.body.slug,
         dates: req.body.dates,
         fees: req.body.fees,
         ageLimits: req.body.ageLimits,
-        importantLinks: req.body.importantLinks
+        importantLinks: req.body.importantLinks,
+        tags: req.body.tags
       });
     
       // Save to MongoDB
@@ -453,18 +465,24 @@
     }
   });
 
-  router.post('/jobAnswerKey/add', async (req, res) => {
+  router.post('/jobAnswerKey/add',  upload.single('image'), async (req, res) => {
     try {
+      // if (req.file == undefined) {
+      //   return res.send(`You must select a file.`);
+      // }
+      
       const answerkey = new jobAnswerKey({
         jobName: req.body.jobName,
         jobShortName: req.body.jobShortName,
+        image: '/assets/uploads/'+ req.file.filename,
         description: req.body.description,
         resultLink: req.body.resultLink,
         slug: req.body.slug,
         dates: req.body.dates,
         fees: req.body.fees,
         ageLimits: req.body.ageLimits,
-        importantLinks: req.body.importantLinks
+        importantLinks: req.body.importantLinks,
+        tags: req.body.tags
       });
     
       // Save to MongoDB
@@ -540,18 +558,24 @@
     }
   });
 
-  router.post('/jobOthers/add', async (req, res) => {
+  router.post('/jobOthers/add', upload.single('image'), async (req, res) => {
     try {
+      // if (req.file == undefined) {
+      //   return res.send(`You must select a file.`);
+      // }
+
       const others = new jobOthers({
         jobName: req.body.jobName,
         jobShortName: req.body.jobShortName,
+        image: '/assets/uploads/'+ req.file.filename,
         description: req.body.description,
         resultLink: req.body.resultLink,
         slug: req.body.slug,
         dates: req.body.dates,
         fees: req.body.fees,
         ageLimits: req.body.ageLimits,
-        importantLinks: req.body.importantLinks
+        importantLinks: req.body.importantLinks,
+        tags: req.body.tags
       });
     
       // Save to MongoDB

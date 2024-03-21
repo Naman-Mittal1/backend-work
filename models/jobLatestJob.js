@@ -28,6 +28,9 @@ const jobLatestJobSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  image: {
+    type: String
+  },
   description:{
     type: String,
     required: true 
@@ -41,6 +44,10 @@ const jobLatestJobSchema = new mongoose.Schema({
   ageLimits: [extraInfoSchema],
 
   importantLinks: [importantLinksSchema],
+  tags: {
+    type: String,
+    required: true
+  },
   createdAt: {
     type: Date,
     default: Date.now,

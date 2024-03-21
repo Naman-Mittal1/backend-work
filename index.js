@@ -19,6 +19,9 @@ const { routeNotFound } = require('./middlewares/route-not-found.middleware')
 const { authVerify } = require('./middlewares/auth-verify.middleware')
 
 
+app.use('/assets/uploads', express.static('assets/uploads'))
+
+
 const userRouter = require('./routers/user.router.js')
 app.use('/user', authVerify, userRouter)
 
